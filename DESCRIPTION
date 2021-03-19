@@ -1,0 +1,18 @@
+Package: sequenceR
+Title: Finds sequences in a binary vector
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Jamie",
+           family = "Place",
+           role = c("aut", "cre"),
+           email = "jamieplace95@gmail.com")
+Description: Given a vector of ones and zeros find a sequence of ones that matches a window size. One can select a continuous window or non-continuous. A non-continuous window that requires ones at the beginning and end of the window but doesn't care about the middle section of the window. For a non-continuous window one can set the number of ones at each end of the window. The output has the option to return all possible sequences in the given data, or removes overlapping sequences, perserving only the earliest occurence of each sequence found.
+License: MIT + file LICENSE
+Suggests: 
+    testthat (>= 2.0.0),
+    torch
+Config/testthat/edition: 2
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0
