@@ -15,10 +15,11 @@ jobs:
       run: |
         if grep source\(\"renv/activate.R\"\) .Rprofile;then echo "renv is activated in .Rprofile - removing";fi,
         if grep source\(\"renv/activate.R\"\) .Rprofile;then sed -i '/source("renv/activate.R")/d' .Rprofile;fi
-    - name: Push changes
+    - name: Commit Changes
       run: |
       git add .Rprofile
-      git config --global user.name "$(Build.RequestedFor)"
-      git config --global user.email "$(Build.RequestedForEmail)"
-      git commit -m "$(Build.BuildId)"
-      git push origin $(Build.SourceBranchName)
+      git config --global user.name "action@github.com"
+      git config --global user.email "Github Action"
+      git commit -m "remove renv activate from rprofile"
+    - name: Push changes
+        uses: ad-m/github-push-action@main
