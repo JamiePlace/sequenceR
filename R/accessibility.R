@@ -72,9 +72,8 @@ find_sequences <- function(data, window = 1, continuous = TRUE, required_pad = 1
     # pad the result with 0
     x1 <- torch::nnf_pad(input = x1, pad = c(0, x$shape[3] - x1$shape[3]), mode = 'constant', value = 0)
     x1 <- x1$squeeze_()
-    x1 <- as_array(x1)
-    x1 <- round(x1, 5)
-    x1 <- floor(x1)
+    x1 <- x1 + 0.0001
+    x1 <- x1$floor_()
 
     accessible_times[start, ] <- x1
   }
