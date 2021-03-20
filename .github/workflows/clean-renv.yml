@@ -22,4 +22,4 @@ jobs:
         git add .Rprofile
         git commit -m "remove renv activate from rprofile"
     - name: Push changes
-        uses: ad-m/github-push-action@main
+      uses: ad-m/github-push-action@main
