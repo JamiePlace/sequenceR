@@ -13,15 +13,17 @@ jobs:
     - uses: actions/checkout@v2
     - name: Remove renv activate for package deployment
       run: |
-        if grep source\(\"renv/activate.R\"\) .Rprofile;then echo "renv is activated in .Rprofile - removing";fi
-        if grep source\(\"renv/activate.R\"\) .Rprofile;then rm .Rprofile;fi
+        if [-e .Rprofile];then echo "::set-env name=rprofile_exist::true";else echo "::set-env name=rprofile_exist::false";fi
+        if [-e .Rprofile];then rm .Rprofile;else echo "no rprofile file";fi
     - name: Commit Changes
+      if: ${{ env.rprofile_exist == 'true' }}
       run: |
         git config --global user.name "action@github.com"
         git config --global user.email "Github Action"
         git add .Rprofile
         git commit -m "remove renv activate from rprofile"
     - name: Push changes
+      if: ${{ env.rprofile_exist == 'true' }}
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
