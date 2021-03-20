@@ -13,7 +13,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Remove renv activate for package deployment
       run: |
-        if [-e .Rprofile];then echo "::set-env name=rprofile_exist::true";else echo "::set-env name=rprofile_exist::false";fi
+        if [-e .Rprofile];then echo "rprofile_exist=true" >> $GITHUB_ENV;else echo "rprofile_exist=false" >> $GITHUB_ENV;fi
         if [-e .Rprofile];then rm .Rprofile;else echo "no rprofile file";fi
     - name: Commit Changes
       if: ${{ env.rprofile_exist == 'true' }}
