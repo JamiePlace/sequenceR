@@ -5,6 +5,7 @@ pcks <- c(
 sapply(pcks, function(x){
   usethis::use_package(
     x,
-    type = "Suggests"
+    type = "depends",
+    min_version = TRUE
   )
 })
