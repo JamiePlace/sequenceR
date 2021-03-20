@@ -1,0 +1,24 @@
+name: clean-renv
+
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Remove renv activate for package deployment
+      run: |
+        if grep source\(\"renv/activate.R\"\) .Rprofile;then echo "renv is activated in .Rprofile - removing";fi,
+        if grep source\(\"renv/activate.R\"\) .Rprofile;then sed -i '/source("renv/activate.R")/d' .Rprofile;fi
+    - name: Push changes
+      run: |
+      git add .Rprofile
+      git config --global user.name "$(Build.RequestedFor)"
+      git config --global user.email "$(Build.RequestedForEmail)"
+      git commit -m "$(Build.BuildId)"
+      git push origin $(Build.SourceBranchName)
