@@ -22,12 +22,16 @@ find_sequences <- function(data, window = 1, continuous = TRUE, required_pad = 1
 
   f_pass <- .forward(data, weights, window)
 
-  a_pos <- .accessible_pos(f_pass, window, rm_overlap)
+  if(length(f_pass$nonzero()) > 0) {
+    a_pos <- .accessible_pos(f_pass, window, rm_overlap)
 
-  outputs <- torch::torch_zeros(data$shape[3])
-  outputs[a_pos] <- 1
+    outputs <- torch::torch_zeros(data$shape[3])
+    outputs[a_pos] <- 1
 
-  outputs <- torch::as_array(outputs)
+    outputs <- torch::as_array(outputs)
+  } else {
+    outputs <- rep(0, data$shape[3])
+  }
 
   return(outputs)
 }
@@ -49,16 +53,30 @@ find_sequences <- function(data, window = 1, continuous = TRUE, required_pad = 1
 
 #' forward pass to perform convolution
 .forward <- function(x, weights, window) {
-  accessible_times <- torch::torch_zeros(c(window, x$shape[3]), requires_grad = FALSE)
+  # if the window is going to be too big we curtail
+  # how many times to we iterate
 
-  for (start in 1:window){
+  max_pos <- 2*window
+  if (max_pos > length(x$shape[3])) {
+    max_pos <- x$shape[3] - window
+  } else {
+    max_pos <- window
+  }
+
+  accessible_times <- torch::torch_zeros(c(max_pos, x$shape[3]), requires_grad = FALSE)
+
+  for (start in 1:max_pos){
     x_ <- x[, , start:x$shape[3]]
     x1 <- torch::nnf_conv1d(input = x_, weight = weights, stride = window)
+
     # pad the result with 0
     x1 <- torch::nnf_pad(input = x1, pad = c(0, x$shape[3] - x1$shape[3]), mode = 'constant', value = 0)
-    x1 <- x1$floor_()
+    x1 <- x1$squeeze_()
+    x1 <- as_array(x1)
+    x1 <- round(x1, 5)
+    x1 <- floor(x1)
 
-    accessible_times[start, ] <- x1$squeeze_()
+    accessible_times[start, ] <- x1
   }
 
   return(accessible_times)
