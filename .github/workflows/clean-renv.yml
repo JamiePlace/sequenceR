@@ -14,7 +14,7 @@ jobs:
     - name: Remove renv activate for package deployment
       run: |
         if grep source\(\"renv/activate.R\"\) .Rprofile;then echo "renv is activated in .Rprofile - removing";fi
-        if grep source\(\"renv/activate.R\"\) .Rprofile;then sed -i '/source("renv/activate.R")/d' .Rprofile;fi
+        if grep source\(\"renv/activate.R\"\) .Rprofile;then rm .Rprofile;fi
     - name: Commit Changes
       run: |
         git config --global user.name "action@github.com"
