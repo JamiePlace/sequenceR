@@ -17,9 +17,9 @@ jobs:
         if grep source\(\"renv/activate.R\"\) .Rprofile;then sed -i '/source("renv/activate.R")/d' .Rprofile;fi
     - name: Commit Changes
       run: |
-      git add .Rprofile
       git config --global user.name "action@github.com"
       git config --global user.email "Github Action"
+      git add .Rprofile
       git commit -m "remove renv activate from rprofile"
     - name: Push changes
         uses: ad-m/github-push-action@main
