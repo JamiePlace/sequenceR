@@ -66,14 +66,13 @@ find_sequences <- function(data, window = 1, continuous = TRUE, required_pad = 1
   accessible_times <- torch::torch_zeros(c(max_pos, x$shape[3]), requires_grad = FALSE)
 
   for (start in 1:max_pos){
-    x_ <- x[, , start:x$shape[3]]
-    x1 <- torch::nnf_conv1d(input = x_, weight = weights, stride = window)
+    x1 <- torch::nnf_conv1d(input = x[, , start:x$shape[3]], weight = weights, stride = window)
 
     # pad the result with 0
     x1 <- torch::nnf_pad(input = x1, pad = c(0, x$shape[3] - x1$shape[3]), mode = 'constant', value = 0)
-    x1 <- x1$squeeze_()
-    x1 <- x1 + 0.0001
-    x1 <- x1$floor_()
+    x1 <- x1$squeeze()
+    x1 <- x1$add(0.0001)
+    x1 <- x1$floor()
 
     accessible_times[start, ] <- x1
   }
