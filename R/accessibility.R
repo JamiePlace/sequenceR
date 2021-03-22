@@ -81,7 +81,7 @@ find_sequences <- function(data, window = 1, continuous = TRUE, required_pad = 1
   # how many times to we iterate
 
   max_pos <- 2*window
-  if (max_pos > length(x$shape[3])) {
+  if (max_pos > x$shape[3]) {
     max_pos <- x$shape[3] - window
   } else {
     max_pos <- window
