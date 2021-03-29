@@ -10,7 +10,7 @@
 #'
 #' @return vector of indices were criteria is met
 #' @export
-find_sequences <- function(data, window = 1, continuous = TRUE, required_pad = 1, rm_overlap = FALSE){
+find_sequences <- function(data, window = 1, continuous = TRUE, required_pad = 1){
   if (!(is.vector(data)) | !(is.numeric(data))) {
     rlang::abort("data must be a numeric vector")
   }
@@ -26,11 +26,6 @@ find_sequences <- function(data, window = 1, continuous = TRUE, required_pad = 1
   if (!(is.numeric(required_pad)) | !(length(required_pad) == 1)){
     rlang::abort("required_pad must be a single numeric value")
   }
-
-  if (!(is.logical(rm_overlap))) {
-    rlang::abort("rm_overlap flag must be logical")
-  }
-
 
 
   if (window > length(data)) {
@@ -105,7 +100,7 @@ find_sequences <- function(data, window = 1, continuous = TRUE, required_pad = 1
 }
 
 #' find nonzero pos in the results of the conv
-.accessible_pos <- function(dat, window, rm_overlap) {
+.accessible_pos <- function(dat, window) {
   idx <- torch::torch_nonzero(
     torch::torch_transpose(dat, 1, 2)
   )
