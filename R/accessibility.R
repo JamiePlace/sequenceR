@@ -6,7 +6,6 @@
 #' @param continuous sequence of continuous 1s or
 #' 1s either end with 0s between
 #' @param required_pad if non-continuous how many 1s at either end
-#' @param rm_overlap if TRUE find earliest sequence, else return all possible sequences
 #'
 #' @return vector of indices were criteria is met
 #' @export

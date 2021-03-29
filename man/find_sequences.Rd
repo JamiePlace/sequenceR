@@ -5,13 +5,7 @@
 \title{Find sequences of a given window size
 in a given vector of 1s and 0s}
 \usage{
-find_sequences(
-  data,
-  window = 1,
-  continuous = TRUE,
-  required_pad = 1,
-  rm_overlap = FALSE
-)
+find_sequences(data, window = 1, continuous = TRUE, required_pad = 1)
 }
 \arguments{
 \item{data}{1d vector of 1s and 0s}
@@ -22,8 +16,6 @@ find_sequences(
 1s either end with 0s between}
 
 \item{required_pad}{if non-continuous how many 1s at either end}
-
-\item{rm_overlap}{if TRUE find earliest sequence, else return all possible sequences}
 }
 \value{
 vector of indices were criteria is met

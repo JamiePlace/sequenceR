@@ -4,7 +4,7 @@
 \alias{.accessible_pos}
 \title{find nonzero pos in the results of the conv}
 \usage{
-.accessible_pos(dat, window, rm_overlap)
+.accessible_pos(dat, window)
 }
 \description{
 find nonzero pos in the results of the conv
