@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - main
-      - master
+      - integration
   pull_request:
     branches:
       - main
-      - master
+      - integration
 
 name: R-CMD-check
 
