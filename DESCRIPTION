@@ -1,5 +1,5 @@
 Package: sequenceR
-Title: Finds sequences in a Binary Vector
+Title: Finds Sequences in a Binary Vector
 Version: 0.0.1
 Authors@R: 
     person(given = "Jamie",
