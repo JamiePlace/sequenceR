@@ -9,6 +9,7 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/sequenceR)](https://CRAN.R-project.org/package=sequenceR)
+[![R-CMD-check](https://github.com/JamiePlace/sequenceR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JamiePlace/sequenceR/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of sequenceR is to identify sequences of 1’s in a vector of 1’s
@@ -34,6 +35,7 @@ This is a basic example which shows you how to solve a common problem:
 ``` r
 library(sequenceR)
 #> Loading required package: torch
+#> Loading required package: rlang
 
 sequence_data <- c(0,0,0,1,1,1,0,1,0,1,0,1,1,1)
 
