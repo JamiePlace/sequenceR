@@ -1,3 +1,5 @@
+skip_on_ci()
+
 test_that("sequences can be found continuous", {
 
   x <- c(0,0,1,1,1,0,0,1,1,1)
