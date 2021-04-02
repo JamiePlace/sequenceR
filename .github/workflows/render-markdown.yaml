@@ -18,7 +18,11 @@ jobs:
 
     # install packages needed
     - name: install required packages
-      run: Rscript -e 'install.packages(c("rmarkdown","gratia"))'
+      run: Rscript -e 'install.packages(c("rmarkdown","gratia", "remotes"))'
+
+    # install packages needed
+    - name: install sequenceR
+      run: Rscript -e 'remotes::install_github("JamiePlace/sequenceR")'
 
     # Render READEME.md using rmarkdown
     - name: render README
