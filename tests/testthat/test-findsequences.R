@@ -16,7 +16,7 @@ test_that("sequences can be found non-continuous", {
 
 test_that("long sequences can be found continuous", {
 
-  wind <- 1235
+  wind <- 123
 
   x <- rep(1, wind)
   x <- c(rep(0, wind*3), x)
@@ -33,7 +33,7 @@ test_that("long sequences can be found continuous", {
 
 test_that("large windows are accurate", {
 
-  wind <- 1235
+  wind <- 123
 
   x <- rep(1, wind)
   x <- c(rep(0, wind*3), x)

@@ -1,4 +1,4 @@
 library(testthat)
 library(sequenceR)
 
-testthat::test_check("sequenceR")
+test_check("sequenceR")
