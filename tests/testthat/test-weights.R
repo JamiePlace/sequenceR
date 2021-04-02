@@ -1,3 +1,5 @@
+skip_on_ci()
+
 test_that("weights work continuous", {
 
   w <- .generate_weights(window = 5, continuous = TRUE)
