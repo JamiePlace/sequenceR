@@ -1,11 +1,12 @@
 pcks <- c(
-  "torch"
+  "torch",
+  "usethis"
 )
 
 sapply(pcks, function(x){
   usethis::use_package(
     x,
-    type = "depends",
+    type = "imports",
     min_version = TRUE
   )
 })
