@@ -41,7 +41,7 @@ find_sequences <- function(data, window = 1, continuous = TRUE, required_pad = 1
   f_pass <- .forward(data, weights, window)
 
   if(length(f_pass$nonzero()) > 0) {
-    a_pos <- .accessible_pos(f_pass, window, rm_overlap)
+    a_pos <- .accessible_pos(f_pass, window)
 
     outputs <- torch::torch_zeros(data$shape[3])
     outputs[a_pos] <- 1
