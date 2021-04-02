@@ -6,6 +6,11 @@
 \usage{
 .accessible_pos(dat, window)
 }
+\arguments{
+\item{dat}{the matrix from the forward function}
+
+\item{window}{the window size}
+}
 \description{
 find nonzero pos in the results of the conv
 }

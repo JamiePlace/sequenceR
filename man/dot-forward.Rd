@@ -6,6 +6,13 @@
 \usage{
 .forward(x, weights, window)
 }
+\arguments{
+\item{x}{the vector of data to find sequences in}
+
+\item{weights}{the weights tensor to be passed to the conv layer}
+
+\item{window}{the window size}
+}
 \description{
 forward pass to perform convolution
 }

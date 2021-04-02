@@ -1,6 +1,6 @@
 pcks <- c(
   "torch",
-  "usethis"
+  "rlang"
 )
 
 sapply(pcks, function(x){

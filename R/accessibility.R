@@ -56,6 +56,9 @@ find_sequences <- function(data, window = 1, continuous = TRUE, required_pad = 1
 
 #' function to generate the weight vector
 #' for the convolution step
+#' @param window the window size
+#' @param continuous bool, continuous or non-continuous
+#' @param required_pad the padding for non-continuous windows
 .generate_weights <- function(window, continuous, required_pad) {
   if (continuous) {
     weights <- torch::torch_ones(window, requires_grad = FALSE)/window
@@ -70,6 +73,9 @@ find_sequences <- function(data, window = 1, continuous = TRUE, required_pad = 1
 }
 
 #' forward pass to perform convolution
+#' @param x the vector of data to find sequences in
+#' @param weights the weights tensor to be passed to the conv layer
+#' @param window the window size
 .forward <- function(x, weights, window) {
   # if the window is going to be too big we curtail
   # how many times to we iterate
@@ -99,6 +105,8 @@ find_sequences <- function(data, window = 1, continuous = TRUE, required_pad = 1
 }
 
 #' find nonzero pos in the results of the conv
+#' @param dat the matrix from the forward function
+#' @param window the window size
 .accessible_pos <- function(dat, window) {
   idx <- torch::torch_nonzero(
     torch::torch_transpose(dat, 1, 2)
