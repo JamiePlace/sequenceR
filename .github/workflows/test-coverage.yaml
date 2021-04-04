@@ -43,5 +43,5 @@ jobs:
       - name: Test coverage
         env:
           cov_secret: ${{ secrets.CODECOV_TOKEN }}
-        run: covr::codecov(token = "$cov_secret")
+        run: covr::codecov(token = $cov_secret)
         shell: Rscript {0}
