@@ -10,7 +10,8 @@ Description: Given a vector of ones and zeros find a sequence of ones that match
 License: MIT + file LICENSE
 Suggests: 
     testthat (>= 3.0.0),
-    rlang (>= 0.4.10)
+    rlang (>= 0.4.10),
+    covr
 Config/testthat/edition: 2
 Encoding: UTF-8
 LazyData: true
