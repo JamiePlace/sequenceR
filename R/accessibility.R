@@ -57,7 +57,7 @@ find_sequences <- function(data, window = 1, continuous = TRUE, required_pad = 1
 #' @param window the window size
 .forward <- function(x, weights, window) {
 
-  c <- convolve(x, weights, type = 'filter')
+  c <- stats::convolve(x, weights, type = 'filter')
   c <- c(c, rep(0, (length(weights) - 1)))
 
   return(c)

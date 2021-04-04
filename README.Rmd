@@ -23,13 +23,13 @@ knitr::opts_chunk$set(
 
 The goal of sequenceR is to identify sequences of 1's in a vector of 1's and 0's. The problem stems from needing to find such sequences efficiently in a simulation environment. 
 
-seqeunceR utilises the efficient convolution processes from the [torch](https://torch.mlverse.org/packages/) package 
+seqeunceR utilises the efficient convolution processes from the base R `stats` package
 
 ## Installation
 
 You can install the released version of sequenceR from [github](https://github.com/JamiePlace/sequenceR) with:
 
-``` r
+```{r install package}
 devtools::install_github("JamiePlace/sequenceR")
 ```
 
