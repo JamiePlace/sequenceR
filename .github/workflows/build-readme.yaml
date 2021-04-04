@@ -20,11 +20,11 @@ jobs:
 
     # install packages needed
     - name: install required packages
-      run: Rscript -e 'install.packages(c("rmarkdown","gratia"))'
+      run: Rscript -e 'install.packages(c("rmarkdown","gratia", "devtools"))'
 
     # Render READEME.md using rmarkdown
     - name: render README
-      run: Rscript -e 'rmarkdown::render("README.Rmd", output_format = "md_document")'
+      run: Rscript -e 'devtools::build_readme()'
 
     - name: commit rendered README
       run: |
