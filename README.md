@@ -1,7 +1,7 @@
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# sequenceR
+sequenceR
+=========
 
 <!-- badges: start -->
 
@@ -19,30 +19,28 @@ efficiently in a simulation environment.
 seqeunceR utilises the efficient convolution processes from the base R
 `stats` package
 
-## Installation
+Installation
+------------
 
 You can install the released version of sequenceR from
 [github](https://github.com/JamiePlace/sequenceR) with:
 
-``` r
-install.packages("remotes")
-remotes::install_github("JamiePlace/sequenceR")
-```
+    install.packages("remotes")
+    remotes::install_github("JamiePlace/sequenceR")
 
-## Example
+Example
+-------
 
 This is a basic example which shows you how to solve a common problem:
 
-``` r
-library(sequenceR)
+    library(sequenceR)
 
-sequence_data <- c(0,0,0,1,1,1,0,1,0,1,0,1,1,1)
+    sequence_data <- c(0,0,0,1,1,1,0,1,0,1,0,1,1,1)
 
-window <- 3
+    window <- 3
 
-find_sequences(sequence_data, window = window)
-#>  [1] 0 0 0 1 0 0 0 0 0 0 0 1 0 0
-```
+    find_sequences(sequence_data, window = window)
+    #>  [1] 0 0 0 1 0 0 0 0 0 0 0 1 0 0
 
 The output is a vector with length equal to that of the given vector
 with 1’s in the location where a sequence matching the requirements
