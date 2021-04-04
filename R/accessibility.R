@@ -9,7 +9,7 @@
 #'
 #' @return vector of indices were criteria is met
 #' @export
-find_sequences <- function(data, window = 1, continuous = TRUE, required_pad = 1){
+find_sequences <- function(data, window = 1, continuous = TRUE, required_pad = 1) {
   if (!(is.vector(data)) | !(is.numeric(data))) {
     rlang::abort("data must be a numeric vector")
   }
@@ -26,32 +26,13 @@ find_sequences <- function(data, window = 1, continuous = TRUE, required_pad = 1
     rlang::abort("required_pad must be a single numeric value")
   }
 
+  w <- .generate_weights(window, continuous, required_pad)
 
-  if (window > length(data)) {
-    outputs <- rep(0, length(data))
+  f_pass <- .forward(data, w, window)
 
-    return(outputs)
-  }
+  f_pass <- floor(f_pass + 1e-9)
 
-  data <- torch::torch_tensor(data)
-  data <- data$view(c(1,1,length(data)))
-
-  weights <- .generate_weights(window, continuous, required_pad)
-
-  f_pass <- .forward(data, weights, window)
-
-  if(length(f_pass$nonzero()) > 0) {
-    a_pos <- .accessible_pos(f_pass, window)
-
-    outputs <- torch::torch_zeros(data$shape[3])
-    outputs[a_pos] <- 1
-
-    outputs <- torch::as_array(outputs)
-  } else {
-    outputs <- rep(0, data$shape[3])
-  }
-
-  return(outputs)
+  return(f_pass)
 }
 
 #' function to generate the weight vector
@@ -61,14 +42,12 @@ find_sequences <- function(data, window = 1, continuous = TRUE, required_pad = 1
 #' @param required_pad the padding for non-continuous windows
 .generate_weights <- function(window, continuous, required_pad) {
   if (continuous) {
-    weights <- torch::torch_ones(window, requires_grad = FALSE)/window
-    weights <- weights$view(c(1,1,weights$shape))
+    weights <- rep(1, window)/window
   } else {
-    weights <- torch::torch_zeros(window, requires_grad = FALSE)
+    weights <- rep(0, window)
     weights[1:required_pad] <- 1
     weights[(window-required_pad + 1):window] <- 1
     weights <- weights/sum(weights)
-    weights <- weights$view(c(1,1,weights$shape))
   }
 }
 
@@ -77,44 +56,9 @@ find_sequences <- function(data, window = 1, continuous = TRUE, required_pad = 1
 #' @param weights the weights tensor to be passed to the conv layer
 #' @param window the window size
 .forward <- function(x, weights, window) {
-  # if the window is going to be too big we curtail
-  # how many times to we iterate
 
-  max_pos <- 2*window
-  if (max_pos > x$shape[3]) {
-    max_pos <- x$shape[3] - window
-  } else {
-    max_pos <- window
-  }
+  c <- convolve(x, weights, type = 'filter')
+  c <- c(c, rep(0, (length(weights) - 1)))
 
-  accessible_times <- torch::torch_zeros(c(max_pos, x$shape[3]), requires_grad = FALSE)
-
-  for (start in 1:max_pos){
-    x1 <- torch::nnf_conv1d(input = x[, , start:x$shape[3]], weight = weights, stride = window)
-
-    # pad the result with 0
-    x1 <- torch::nnf_pad(input = x1, pad = c(0, x$shape[3] - x1$shape[3]), mode = 'constant', value = 0)
-    x1$squeeze_()
-    x1$add_(0.0001)
-    x1$floor_()
-
-    accessible_times[start, ] <- x1
-  }
-
-  return(accessible_times)
-}
-
-#' find nonzero pos in the results of the conv
-#' @param dat the matrix from the forward function
-#' @param window the window size
-.accessible_pos <- function(dat, window) {
-  idx <- torch::torch_nonzero(
-    torch::torch_transpose(dat, 1, 2)
-  )
-
-  idx <- torch::as_array(idx)
-
-  pos <- idx[,1]*window + idx[,2] + 1
-
-  return(pos)
+  return(c)
 }
