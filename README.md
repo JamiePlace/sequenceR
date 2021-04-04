@@ -16,8 +16,8 @@ The goal of sequenceR is to identify sequences of 1’s in a vector of 1’s
 and 0’s. The problem stems from needing to find such sequences
 efficiently in a simulation environment.
 
-seqeunceR utilises the efficient convolution processes from the
-[torch](https://torch.mlverse.org/packages/) package
+seqeunceR utilises the efficient convolution processes from the base R
+`stats` package
 
 ## Installation
 
@@ -25,7 +25,8 @@ You can install the released version of sequenceR from
 [github](https://github.com/JamiePlace/sequenceR) with:
 
 ``` r
-devtools::install_github("JamiePlace/sequenceR")
+install.packages("remotes")
+remotes::install_github("JamiePlace/sequenceR")
 ```
 
 ## Example
@@ -34,8 +35,6 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(sequenceR)
-#> Loading required package: torch
-#> Loading required package: rlang
 
 sequence_data <- c(0,0,0,1,1,1,0,1,0,1,0,1,1,1)
 

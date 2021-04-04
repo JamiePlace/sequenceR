@@ -29,7 +29,7 @@ seqeunceR utilises the efficient convolution processes from the base R `stats` p
 
 You can install the released version of sequenceR from [github](https://github.com/JamiePlace/sequenceR) with:
 
-```{r install package}
+```{r install package, echo=TRUE, results='hide', message=FALSE}
 install.packages("remotes")
 remotes::install_github("JamiePlace/sequenceR")
 ```
